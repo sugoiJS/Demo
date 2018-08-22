@@ -1,0 +1,21 @@
+<html>
+<head>
+    <title>SugoiJS Demo</title>
+</head>
+<body style="display: flex;justify-content: center;flex-direction:column;align-items:center;font-family: monospace">
+
+<section style="align-items: center;display: flex;">
+    <img src="logo.png">
+    <h1>Enhance your product!</h1>
+</section>
+<section>You are watching this screen for <span id="socket-data"></span> sec!(got it from socket)</section>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io('/');
+    const intervalInSec = 1;
+    socket.emit("REGISTER_USER", intervalInSec);
+    socket.on("USAGE_TIME", function(data){window['socket-data'].innerText = data});
+    socket.on("COLOR_CHANGE", function(data){document.body.style.backgroundColor = data});
+</script>
+</body>
+</html>
