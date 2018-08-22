@@ -7,11 +7,12 @@ which gives you the ability to use only what you need, fast.
 
 ## Getting started
 
-1. `cd server`
-2. `npm install`
-3. `npm run build` | `npm run dev` - live recompile
-4. `node dist/server.js`
-5. Go to `http://localhost:3000` in your browser.
+1. `git clone https://github.com/sugoiJS/demo.git`
+2. `cd demo/server`
+3. `npm install`
+4. `npm run build` | `npm run dev` - live recompile
+5. `node dist/server.js`
+6. Go to `http://localhost:3000` in your browser.
 
 ## What we got inside?
 
@@ -47,11 +48,11 @@ which gives you the ability to use only what you need, fast.
 
     -- src - application directory
 
-        -- config   - Application bootstrap, services, paths and generic configs
+      > -- config   - Application bootstrap, services, paths and generic configs
 
-        -- core     - Application generic classes, interface, utils etc.
+      > -- core     - Application generic classes, interface, utils etc.
 
-        -- modules  - All of our application modules, each module should be handle as separate unit for code sharing or export to micro-service.
+      > -- modules  - All of our application modules, each module should be handle as separate unit for code sharing or export to micro-service.
 
 ## Documentation
 
