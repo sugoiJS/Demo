@@ -27,15 +27,22 @@ which gives you the ability to use only what you need, fast.
 2. 2 controllers
     - /index - 2 paths guarded by policy and 1 unguarded:
 
-        - `GET /api/index/{id}/{amount}` - get and update model
+        - `GET /api/index/data/:id` - get DummyData record
 
-            schema - `{id:string//with regex "([A-Z])+"}`
+            schema - `{id:string//with regex "([a-z])+"}`
 
-        - `POST /api/index` - update model
+        - `POST /api/index/data` - create new DummyData record
 
-            schema - `{amount:number//>=2}`
+            schema - `{amount:number//>2}`
 
-        - `GET /api/index` - update background color for all connected clients
+        - `PUT /api/index/data/:id` - update existing DummyData record
+
+            schema - `{amount:number//>2}`
+
+        - `DELETE /api/index/data/:id` - remove existing DummyData record
+
+
+        - `GET /api/index/changeColor` - update background color for all connected clients (using sockets)
 
     - /posts - 4 unguarded paths:
 

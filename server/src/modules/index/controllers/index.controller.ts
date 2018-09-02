@@ -1,4 +1,7 @@
-import {RequestSchemaPolicy, RequestBody, Controller, HttpGet, RequestParam, HttpPost} from "@sugoi/server";
+import {
+    RequestSchemaPolicy, RequestBody, Controller, HttpGet, RequestParam, HttpPost, HttpPut,
+    HttpDelete
+} from "@sugoi/server";
 import {UsePolicy, Policy, ValidateSchemaPolicy, SchemaTypes, ComparableSchema} from "@sugoi/core";
 import {DummyDataModel} from "../models/dummy-data.model";
 import {SocketHandlerService} from "../services/socket-handler.service";
@@ -7,35 +10,33 @@ import {MongoModel} from "@sugoi/mongodb";
 
 @Controller('/index')
 export class IndexController {
-    private static readonly COLORS = ["bisque","darkcyan","aliceblue", "yellowgreen"];
+    private static readonly COLORS = ["bisque", "darkcyan", "aliceblue", "yellowgreen"];
 
-    constructor(private socketHandler: SocketHandlerService) {
-    }
+    constructor(private socketHandler: SocketHandlerService) {}
 
 
     /**
-     * This endpoint require id which contain at least on capital letter (using @RequestSchemaPolicy policy).
+     * This endpoint require id which contain at least on letter (using @RequestSchemaPolicy policy).
      * The endpoint will try to query the DummyDataModel using this id.
      * If resource not found it will get created after it will get valid (amount should be lower than 10)
      *
      * @param {string} id
-     * @param {string} amount
      * @returns {Promise<any>}
      */
-    @HttpGet("/:id/:amount")
-    @RequestSchemaPolicy({"id": ComparableSchema.ofType(SchemaTypes.STRING).setRegex("([A-Z])+")})
-    async getData(@RequestParam('id') id: string, @RequestParam('amount') amount: string) {
+    @HttpGet("/data/:id")
+    @RequestSchemaPolicy({"id": ComparableSchema.ofType(SchemaTypes.STRING).setRegex("([a-z])+")})
+    async getData(@RequestParam('id') id: string) {
         try {
-            return await DummyDataModel.find(id)
+            return await id ? DummyDataModel.findById(id)
+                : DummyDataModel.findAll();
         } catch (error) {
             console.log(error);
-            const myData = new DummyDataModel(amount);
+            const myData = new DummyDataModel(null);
             //5001 means you didn't setup a connection to mongoDB server
             if (error.code == 5001) {
                 myData['_id'] = MongoModel.getIdObject("1e23-1e23-1e2f-eeff");
                 return myData;
             }
-            return await myData.save()
         }
     }
 
@@ -45,17 +46,47 @@ export class IndexController {
      * @param body
      * @returns {Promise<any>}
      */
-    @HttpPost("/")
+    @HttpPost("/data")
     @RequestSchemaPolicy(null, null, {"amount": ComparableSchema.ofType(SchemaTypes.NUMBER).setMandatory(true).setMin(2)})
-    async postData(@RequestBody() body) {
+    async createData(@RequestBody() body) {
         const myData = new DummyDataModel(body.amount);
         return await myData.save()
+            .catch(err=>{
+                console.error(err);
+                return err;
+            });
     }
 
-    @HttpGet("/")
+    /**
+     * This endpoint update the value of existing record.
+     * @param {string} id
+     * @param {DummyDataModel} body
+     * @returns {Promise<any>}
+     */
+    @HttpPut("/data/:id")
+    @RequestSchemaPolicy(null, null, {"amount": ComparableSchema.ofType(SchemaTypes.NUMBER).setMin(2)})
+    async updateData(@RequestParam("id") id: string, @RequestBody() body: DummyDataModel) {
+        const myData = await DummyDataModel.findById(id);
+        Object.assign(myData, body);
+        return await myData.update();
+    }
+
+    /**
+     * This value remove existing record by id
+     * @param {string} id
+     * @param {DummyDataModel} body
+     * @returns {Promise<any>}
+     */
+    @HttpDelete("/data/:id")
+    async deleteData(@RequestParam("id") id: string, @RequestBody() body: DummyDataModel) {
+        return await DummyDataModel.removeById(id);
+    }
+
+    @HttpGet("/changeColor")
     changeColor() {
         const index = Math.floor(Math.random() * Math.floor(IndexController.COLORS.length));
-        this.socketHandler.emitToAllSockets(GENERIC_SOCKET_EVENTS.COLOR_CHANGE,IndexController.COLORS[index])
+        this.socketHandler.emitToAllSockets(GENERIC_SOCKET_EVENTS.COLOR_CHANGE, IndexController.COLORS[index]);
+        return {color:IndexController.COLORS[index]};
     }
 
 }
