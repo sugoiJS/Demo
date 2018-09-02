@@ -44,7 +44,7 @@ which gives you the ability to use only what you need, fast.
 
         - `GET /api/index/changeColor` - update background color for all connected clients (using sockets)
 
-    - /posts - 4 unguarded paths:
+    - /post - 4 unguarded paths:
 
         - `GET /api/post/:id?` - get all of the posts or by id (id is optional param)
 
