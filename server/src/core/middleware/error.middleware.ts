@@ -14,7 +14,9 @@ export const errorHandler = (development: boolean = true): ErrorRequestHandler =
         } else if (err['status']) {
             res.status(err['status']).json(new ErrorMessage(err['status'], err.message));
         } else {
-            res.status(500).json(new ErrorMessage(500, err.message));
+            const error =new ErrorMessage(500, err.message);
+            error.stack = err.stack || error.stack;
+            res.status(500).json(error);
         }
         return next();
     }

@@ -1,7 +1,8 @@
 import {ServerModule} from "@sugoi/server";
+import {HttpService} from "./services/http.service";
 
 @ServerModule({
     controllers:[],
-    services: [ ]
+    services: [ HttpService]
 })
 export class CoreModule {}

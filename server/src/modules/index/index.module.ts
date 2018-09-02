@@ -4,6 +4,8 @@ import {SocketHandlerService} from "./services/socket-handler.service";
 
 @ServerModule({
     controllers:[IndexController],
-    services: [ SocketHandlerService]
+    services: [
+        SocketHandlerService,
+    ]
 })
 export class IndexModule {}

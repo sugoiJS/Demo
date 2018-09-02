@@ -3,7 +3,7 @@ export class services {
         port: 27017,
         protocol: "mongodb://",
         hostName: "localhost",
-        db: "Sugoi",
+        db: "SUGOIJS-DEMO",
         user: null,
         password: null
     }

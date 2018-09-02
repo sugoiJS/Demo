@@ -3,8 +3,9 @@ import {UsePolicy, Policy, ValidateSchemaPolicy, SchemaTypes, ComparableSchema} 
 import {DummyDataModel} from "../models/dummy-data.model";
 import {SocketHandlerService} from "../services/socket-handler.service";
 import {GENERIC_SOCKET_EVENTS} from "../../../../../common/constants/generic-socket-events.constant";
+import {MongoModel} from "@sugoi/mongodb";
 
-@Controller('')
+@Controller('/index')
 export class IndexController {
     private static readonly COLORS = ["bisque","darkcyan","aliceblue", "yellowgreen"];
 
@@ -31,7 +32,7 @@ export class IndexController {
             const myData = new DummyDataModel(amount);
             //5001 means you didn't setup a connection to mongoDB server
             if (error.code == 5001) {
-                myData['_id'] = "temp";
+                myData['_id'] = MongoModel.getIdObject("1e23-1e23-1e2f-eeff");
                 return myData;
             }
             return await myData.save()

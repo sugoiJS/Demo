@@ -16,19 +16,36 @@ which gives you the ability to use only what you need, fast.
 
 ## What we got inside?
 
-1. 1 module - index module
+1. 3 module -
 
-2. 1 controller("/") - 2 paths guarded by policy and 1 unguarded:
+    CoreModule - This module use for setting core logic of our server
 
-- `GET /api/{id}/{amount}` - get and update model
+    IndexModule - contains
 
-    schema - {id:string//with regex "([A-Z])+"}
+    PostsModule - This module
 
-- `POST /api/` - update model
+2. 2 controllers
+    - /index - 2 paths guarded by policy and 1 unguarded:
 
-    schema - {amount:number//>=2}
+        - `GET /api/index/{id}/{amount}` - get and update model
 
-- `GET /api/` - update background color for all connected clients
+            schema - `{id:string//with regex "([A-Z])+"}`
+
+        - `POST /api/index` - update model
+
+            schema - `{amount:number//>=2}`
+
+        - `GET /api/index` - update background color for all connected clients
+
+    - /posts - 4 unguarded paths:
+
+        - `GET /api/post/:id?` - get all of the posts or by id (id is optional param)
+
+        - `POST /api/post` - create new post.
+
+        - `PUT /api/post/:id` - update existing post.
+
+        - `DELETE /api/post/:id` - remove existing post.
 
 3. 1 Service:
 
