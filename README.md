@@ -10,7 +10,7 @@ which gives you the ability to use only what you need, fast.
 1. `git clone https://github.com/sugoiJS/demo.git`
 2. `cd demo/server`
 3. `npm install`
-4. `npm run build` | `npm run dev` - live recompile
+4. `npm run build` OR `npm run dev` (live recompile)
 5. `node dist/server.js`
 6. Go to `http://localhost:3000` in your browser.
 
