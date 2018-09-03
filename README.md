@@ -20,9 +20,9 @@ which gives you the ability to use only what you need, fast.
 
     CoreModule - This module use for setting core logic of our server
 
-    IndexModule - contains
+    IndexModule - This module demonstrate usage of socket with SocketHandlerService and handling Mongo resource named DummyDataModel using MongoModel.
 
-    PostsModule - This module
+    PostsModule - This module demonstrate handling Microservice resource named posts using ModelAbstract (PostModel).
 
 2. 2 controllers
     - /index - 2 paths guarded by policy and 1 unguarded:
