@@ -25,6 +25,7 @@
     "@sugoi/socket": "^2.0.0",
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
+    "request": "^2.88.0",
     "request-promise": "^4.2.2",
     "winston": "^3.0.0"
   },
