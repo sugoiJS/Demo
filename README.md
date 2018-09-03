@@ -16,7 +16,7 @@ which gives you the ability to use only what you need, fast.
 
 ## What we got inside?
 
-1. 3 module -
+1. 3 modules -
 
     CoreModule - This module use for setting core logic of our server
 
