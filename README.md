@@ -33,11 +33,11 @@ which gives you the ability to use only what you need, fast.
 
         - `POST /api/index/data` - create new DummyData record
 
-            schema - `{amount:number//>2}`
+            schema - `{amount:number//>=2}`
 
         - `PUT /api/index/data/:id` - update existing DummyData record
 
-            schema - `{amount:number//>2}`
+            schema - `{amount:number//>=2}`
 
         - `DELETE /api/index/data/:id` - remove existing DummyData record
 
