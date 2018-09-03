@@ -23,7 +23,7 @@ export class IndexController {
      * @param {string} id
      * @returns {Promise<any>}
      */
-    @HttpGet("/data/:id")
+    @HttpGet("/data/:id?")
     @RequestSchemaPolicy({"id": ComparableSchema.ofType(SchemaTypes.STRING).setRegex("([a-z])+")})
     async getData(@RequestParam('id') id: string) {
         try {
