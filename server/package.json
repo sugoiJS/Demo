@@ -21,7 +21,7 @@
     "@sugoi/core": "^2.2.1",
     "@sugoi/mongodb": "^2.2.0",
     "@sugoi/orm": "^2.1.0",
-    "@sugoi/server": "^2.1.5",
+    "@sugoi/server": "^2.1.8",
     "@sugoi/socket": "^2.0.0",
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
