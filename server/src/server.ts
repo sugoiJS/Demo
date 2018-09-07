@@ -7,7 +7,7 @@ const PORT = parseInt(process.env.PORT) || 3000;
 const HOST = server.rootPath;
 
 const serverInstance = server
-    .build(PORT)
+    .build()
     .listen(PORT, (error: Error) => {
         if (error) {
             logger.error(error.message);
