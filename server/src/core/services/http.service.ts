@@ -8,7 +8,6 @@ enum HTTP_METHODS {
     DELETE = "DELETE"
 }
 
-@Injectable()
 export class HttpService {
 
     public static get(url: string, params = null, headers?) {
