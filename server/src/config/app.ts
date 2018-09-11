@@ -15,8 +15,8 @@ const TESTING = process.env.ENV.indexOf('test') !== -1;
  * Set DBs for being singleton
  */
 const setDBs = function (app) {
-    // todo: comment out to establish connection to mongoDB
-    // MongoModel.setConnection(services.MONGODB).catch(console.error);
+    // todo: comment out for establish a connection to mongoDB
+    // MongoModel.setConnection(services.MONGODB,"SugoiApplicationDB").catch(console.error);
 };
 
 

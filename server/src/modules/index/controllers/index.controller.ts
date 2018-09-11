@@ -7,12 +7,16 @@ import {DummyDataModel} from "../models/dummy-data.model";
 import {SocketHandlerService} from "../services/socket-handler.service";
 import {GENERIC_SOCKET_EVENTS} from "../../../../../common/constants/generic-socket-events.constant";
 import {MongoModel} from "@sugoi/mongodb";
+import {QueryOptions} from "@sugoi/orm";
+import {SortOptions} from "@sugoi/orm/dist/constants/sort-options.enum";
+import {SortItem} from "@sugoi/orm/dist/classes/sort-item.class";
 
 @Controller('/index')
 export class IndexController {
     private static readonly COLORS = ["bisque", "darkcyan", "aliceblue", "yellowgreen"];
 
-    constructor(private socketHandler: SocketHandlerService) {}
+    constructor(private socketHandler: SocketHandlerService) {
+    }
 
 
     /**
@@ -28,7 +32,12 @@ export class IndexController {
     async getData(@RequestParam('id') id: string) {
         try {
             return await id ? DummyDataModel.findById(id)
-                : DummyDataModel.findAll();
+                : DummyDataModel.findAll({}, QueryOptions.builder()
+                    .setSortOption(
+                        new SortItem(SortOptions.DESC, "amount"),
+                        new SortItem(SortOptions.ASC, "lastUpdate")
+                    )
+                );
         } catch (error) {
             console.log(error);
             const myData = new DummyDataModel(null);
@@ -43,15 +52,15 @@ export class IndexController {
     /**
      * This endpoint requires body with 'amount' property which is type number and minimum of 2 (using @RequestSchemaPolicy policy).
      * The endpoint will try to create the DummyDataModel using this data, otherwise the error will returned to the client.
-     * @param body
+     * @param {DummyDataModel} body - example: {"amount": 2}
      * @returns {Promise<any>}
      */
     @HttpPost("/data")
     @RequestSchemaPolicy(null, null, {"amount": ComparableSchema.ofType(SchemaTypes.NUMBER).setMandatory(true).setMin(2)})
-    async createData(@RequestBody() body) {
+    async createData(@RequestBody() body:DummyDataModel) {
         const myData = new DummyDataModel(body.amount);
         return await myData.save()
-            .catch(err=>{
+            .catch(err => {
                 console.error(err);
                 return err;
             });
@@ -59,16 +68,19 @@ export class IndexController {
 
     /**
      * This endpoint update the value of existing record.
+     *
      * @param {string} id
-     * @param {DummyDataModel} body
+     * @param {DummyDataModel} body - example: {"amount":2}
      * @returns {Promise<any>}
      */
     @HttpPut("/data/:id")
     @RequestSchemaPolicy(null, null, {"amount": ComparableSchema.ofType(SchemaTypes.NUMBER).setMin(2)})
     async updateData(@RequestParam("id") id: string, @RequestBody() body: DummyDataModel) {
-        const myData = await DummyDataModel.findById(id);
-        Object.assign(myData, body);
-        return await myData.update();
+        return await DummyDataModel.updateById(id, body)
+            .catch(err => {
+                console.error(err);
+                return err;
+            });
     }
 
     /**
@@ -86,7 +98,7 @@ export class IndexController {
     changeColor() {
         const index = Math.floor(Math.random() * Math.floor(IndexController.COLORS.length));
         this.socketHandler.emitToAllSockets(GENERIC_SOCKET_EVENTS.COLOR_CHANGE, IndexController.COLORS[index]);
-        return {color:IndexController.COLORS[index]};
+        return {color: IndexController.COLORS[index]};
     }
 
 }

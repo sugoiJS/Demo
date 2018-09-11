@@ -1,6 +1,6 @@
 {
   "name": "SugoiJS-Starter",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Starter project for SugoiJS framework - contains Server, ORM and sockets",
   "main": "src/dist/server.js",
   "private": false,
@@ -19,8 +19,8 @@
   "license": "MIT",
   "dependencies": {
     "@sugoi/core": "^2.2.1",
-    "@sugoi/mongodb": "^2.2.0",
-    "@sugoi/orm": "^2.1.0",
+    "@sugoi/mongodb": "^2.3.0",
+    "@sugoi/orm": "^2.3.0",
     "@sugoi/server": "^2.1.8",
     "@sugoi/socket": "^2.0.0",
     "body-parser": "^1.18.3",

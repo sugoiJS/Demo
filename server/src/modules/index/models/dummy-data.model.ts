@@ -1,14 +1,15 @@
 import {MongoResource} from "../../../core/models/mongo-resource.model";
-import {IBeforeValidate, IValidate, IBeforeSave,IBeforeUpdate} from "@sugoi/mongodb";
+import {IBeforeValidate, IValidate, IBeforeSave, IBeforeUpdate, ConnectionName} from "@sugoi/mongodb";
 
-export class DummyDataModel extends MongoResource implements IValidate, IBeforeSave,IBeforeUpdate , IBeforeValidate {
+@ConnectionName("SugoiApplicationDB")
+export class DummyDataModel extends MongoResource implements IValidate, IBeforeSave, IBeforeUpdate, IBeforeValidate {
     maxAmount: number = 10;
 
     amount: number | string;
 
-    lastUpdate:string;
+    lastUpdate: string;
 
-    constructor(amount: number | string){
+    constructor(amount: number | string) {
         super();
         this.amount = amount;
     }
@@ -29,7 +30,7 @@ export class DummyDataModel extends MongoResource implements IValidate, IBeforeS
         this.setLastUpdated();
     }
 
-    private setLastUpdated(){
+    private setLastUpdated() {
         this.lastUpdate = (new Date()).toISOString();
     }
 
