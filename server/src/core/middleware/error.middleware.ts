@@ -11,14 +11,22 @@ export const errorHandler = (development: boolean = true): ErrorRequestHandler =
 
         if (err instanceof ErrorMessage) {
             res.status(400).json(err);
-        } else if (err['status']) {
-            res.status(err['status']).json(new ErrorMessage(err['status'], err.message));
-        } else {
-            const error = new ErrorMessage(500, err.message);
-            if(development)
-                error.stack = err.stack || error.stack;
-            res.status(500).json(error);
+        }
+        else{
+            sendRes(res,cloneError(err))
         }
         return next();
     }
 };
+function cloneError(error:any):ErrorMessage{
+    let code = error.status || error.code || 500;
+    if(code > 599 || code < 100) code = 500;
+    const data = "getData" in error && error.getData() ? error.getData() : [];
+    const err = new ErrorMessage(code,error.message,new Date(),data);
+    err.stack = error.stack;
+    return err;
+}
+
+function sendRes(res:Response,err:ErrorMessage){
+    res.status(err.code).send(err);
+}

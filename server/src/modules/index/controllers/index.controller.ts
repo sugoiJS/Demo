@@ -1,6 +1,6 @@
 import {
     RequestSchemaPolicy, RequestBody, Controller, HttpGet, RequestParam, HttpPost, HttpPut,
-    HttpDelete
+    HttpDelete, Authorized,Request
 } from "@sugoi/server";
 import {UsePolicy, Policy, ValidateSchemaPolicy, SchemaTypes, ComparableSchema} from "@sugoi/core";
 import {DummyDataModel} from "../models/dummy-data.model";
@@ -57,7 +57,7 @@ export class IndexController {
      */
     @HttpPost("/data")
     @RequestSchemaPolicy(null, null, {"amount": ComparableSchema.ofType(SchemaTypes.NUMBER).setMandatory(true).setMin(2)})
-    async createData(@RequestBody() body:DummyDataModel) {
+    async createData(@RequestBody() body: DummyDataModel) {
         const myData = new DummyDataModel(body.amount);
         return await myData.save()
             .catch(err => {
@@ -94,11 +94,21 @@ export class IndexController {
         return await DummyDataModel.removeById(id);
     }
 
+    /**
+     * Change the color of all connected sockets by using the SocketHandlerService instance
+     * This method is forbidden for none authorized users.
+     *
+     * For "authorize" set header x-sug-demo to be equal to Wyn1RRR9PQJPaqYM
+     *
+     * @ref server/src/core/classes/authorization.class.ts
+     * @returns {{color: string}}
+     */
     @HttpGet("/changeColor")
+    @Authorized()
     changeColor() {
         const index = Math.floor(Math.random() * Math.floor(IndexController.COLORS.length));
         this.socketHandler.emitToAllSockets(GENERIC_SOCKET_EVENTS.COLOR_CHANGE, IndexController.COLORS[index]);
         return {color: IndexController.COLORS[index]};
-    }
 
+    }
 }

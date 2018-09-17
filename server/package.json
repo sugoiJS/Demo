@@ -18,10 +18,10 @@
   "author": "Orel Balilti",
   "license": "MIT",
   "dependencies": {
-    "@sugoi/core": "^2.2.1",
+    "@sugoi/core": "^2.2.3",
     "@sugoi/mongodb": "^2.3.0",
     "@sugoi/orm": "^2.3.0",
-    "@sugoi/server": "^2.1.8",
+    "@sugoi/server": "^2.2.1",
     "@sugoi/socket": "^2.0.0",
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
@@ -40,9 +40,9 @@
     "rimraf": "^2.6.2",
     "ts-helpers": "^1.1.2",
     "typescript": "^3.0.1",
-    "webpack": "^4.17.1",
+    "webpack": "^4.19.0",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5",
+    "webpack-dev-server": "^3.1.8",
     "webpack-merge": "^4.1.4",
     "webpack-node-externals": "^1.7.2"
   }

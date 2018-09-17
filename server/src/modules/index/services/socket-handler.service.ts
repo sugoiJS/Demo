@@ -6,6 +6,8 @@ import SocketIOStatic = require("socket.io");
 @Injectable()
 export class SocketHandlerService {
 
+    public amount = 1;
+
     constructor(){
 
     }
