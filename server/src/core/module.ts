@@ -1,7 +1,4 @@
 import {ServerModule} from "@sugoi/server";
 
-@ServerModule({
-    controllers:[],
-    services: []
-})
+@ServerModule()
 export class CoreModule {}

@@ -14,10 +14,10 @@ const DEVELOPMENT = process.env.ENV.indexOf('dev') !== -1;
 const TESTING = process.env.ENV.indexOf('test') !== -1;
 /**
  * Set DBs for being singleton
- *todo: comment out for establish a connection to mongoDB
+ * todo: comment out for establish a connection to mongoDB
  */
 const setDBs = function (app) {
-    MongoModel.setConnection(services.MONGODB,"SugoiApplicationDB").catch(console.error);
+    // MongoModel.setConnection(services.MONGODB,"SugoiApplicationDB").catch(console.error);
 };
 
 

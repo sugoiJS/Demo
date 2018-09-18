@@ -1,10 +1,9 @@
-import {AuthProvider} from "@sugoi/server";
+import {AuthProvider,TStringOrNumber} from "@sugoi/server";
 import e = require("express");
 
 export class Authorization extends AuthProvider<any> {
-
     /**
-     * Verify if user is authorized
+     * Verify user is authorized
      *
      * Implemented dummy check for x-sug-demo header to be equal to "Wyn1RRR9PQJPaqYM"
      *
@@ -22,13 +21,14 @@ export class Authorization extends AuthProvider<any> {
         return Promise.resolve(true);
     }
 
-    isInRole(role: string | number): Promise<boolean> {
-        return Promise.resolve(true);
-
-    }
 
     isAllowedTo(...permissions: Array<string | number>): Promise<boolean> {
-        return Promise.resolve(false);
+        return Promise.resolve(true);
     }
+
+    isInRole(...roles: TStringOrNumber[]): Promise<boolean> {
+        return Promise.resolve(true);
+    }
+
 
 }

@@ -3,8 +3,6 @@ import {IndexModule} from "./index/index.module";
 import {PostsModule} from "./posts/posts.module";
 
 @ServerModule({
-    controllers:[],
-    services: [],
     modules:[
         IndexModule,
         PostsModule
