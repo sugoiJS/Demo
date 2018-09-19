@@ -1,8 +1,6 @@
 import {MicroserviceResource} from "../../../core/models/microservice-resource.model";
 import {IBeforeSave, IBeforeUpdate, ModelName} from "@sugoi/orm";
 import {IPost} from "../interfaces/post.interface";
-import {SocketHandlerService} from "../../index/services/socket-handler.service";
-import {Inject} from "@sugoi/core";
 
 @ModelName("posts")
 export class Post extends MicroserviceResource implements IPost,IBeforeSave,IBeforeUpdate{
@@ -22,7 +20,7 @@ export class Post extends MicroserviceResource implements IPost,IBeforeSave,IBef
     beforeUpdate(): Promise<any> | void {
         this.setTimestamp()
     }
-    constructor(@Inject(SocketHandlerService) private socketHandler: SocketHandlerService){
+    constructor(){
         super()
     }
 
