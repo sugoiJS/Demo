@@ -44,6 +44,8 @@ which gives you the ability to use only what you need, fast.
 
         - `GET /api/index/changeColor` - update background color for all connected clients (using sockets)
 
+            authorized access required - use header x-sug-demo with value set to "Wyn1RRR9PQJPaqYM"
+
     - /post - 4 unguarded paths:
 
         - `GET /api/post/:id?` - get all of the posts or by id (id is optional param)
@@ -56,7 +58,12 @@ which gives you the ability to use only what you need, fast.
 
 3. 1 Service:
 
-    SocketHandlerService which handle the socket events and trigger background color change
+    - SocketHandlerService which handle the socket events and trigger background color change
+
+4. 1 Authorization class:
+
+    -   Authorization - extends AuthProvider and apply the check who come from @Authorized decorator
+
 
 
 ## File structure
