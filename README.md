@@ -62,7 +62,7 @@ which gives you the ability to use only what you need, fast.
 
 4. 1 Authorization class:
 
-    -   Authorization - extends AuthProvider and apply the check who come from @Authorized decorator
+    -   Authorization - extends AuthProvider and apply the checks of @Authorized decorator
 
 
 
