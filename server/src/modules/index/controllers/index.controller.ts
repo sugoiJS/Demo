@@ -77,10 +77,6 @@ export class IndexController {
     @RequestSchemaPolicy(null, null, {"amount": ComparableSchema.ofType(SchemaTypes.NUMBER).setMin(2)})
     async updateData(@RequestParam("id") id: string, @RequestBody() body: DummyDataModel) {
         return await DummyDataModel.updateById(id, body)
-            .catch(err => {
-                console.error(err);
-                return err;
-            });
     }
 
     /**

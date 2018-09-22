@@ -19,7 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "@sugoi/core": "^2.2.3",
-    "@sugoi/mongodb": "^2.3.9",
+    "@sugoi/mongodb": "^2.3.10",
     "@sugoi/orm": "^2.3.4",
     "@sugoi/server": "^2.2.2",
     "@sugoi/socket": "^2.0.0",
