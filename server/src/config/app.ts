@@ -17,7 +17,7 @@ const TESTING = process.env.ENV.indexOf('test') !== -1;
  * todo: comment out for establish a connection to mongoDB
  */
 const setDBs = function (app) {
-    MongoModel.setConnection(services.MONGODB,"SugoiApplicationDB").catch(console.error);
+    // MongoModel.setConnection(services.MONGODB,"SugoiApplicationDB").catch(console.error);
 };
 
 
