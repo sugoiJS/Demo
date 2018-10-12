@@ -21,7 +21,7 @@ export const errorHandler = (development: boolean = true): ErrorRequestHandler =
 function cloneError(error:any):ErrorMessage{
     let code = error.status || error.code || 500;
     if(code > 599 || code < 100) code = 500;
-    const data = "getData" in error && error.getData() ? error.getData() : [];
+    const data = "data" in error && error.data ? error.data : [];
     const err = new ErrorMessage(code,error.message,new Date(),data);
     err.stack = error.stack;
     return err;
