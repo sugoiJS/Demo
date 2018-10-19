@@ -1,5 +1,6 @@
 import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
+import * as fs from 'fs';
 import * as path from "path";
 import {HttpServer} from "@sugoi/server";
 
@@ -21,7 +22,15 @@ const setDBs = function (app) {
 };
 
 
-const server:HttpServer = HttpServer.init(BootstrapModule,"/api",null,Authorization)
+/**
+ * comment out in case you want to run the server as http
+ */
+// const httpsConfig = {
+//     key: fs.readFileSync(path.resolve(__dirname,'../server.key')),
+//     cert: fs.readFileSync(path.resolve(__dirname,'../server.cert'))
+// };
+    // const server: HttpServer = HttpServer.init(BootstrapModule, "/api", null, Authorization,httpsConfig)
+const server: HttpServer = HttpServer.init(BootstrapModule, "/api", null, Authorization)
     .setStatic(paths.staticDir) // set static file directory path
     .setMiddlewares((app) => {
         app.disable('x-powered-by');
@@ -36,13 +45,12 @@ const server:HttpServer = HttpServer.init(BootstrapModule,"/api",null,Authorizat
 
     })
     .setErrorHandlers((app) => {
-        app.use((req, res, next) =>{
+        app.use((req, res, next) => {
             //  set fallback send the web app index file
             return res.sendFile(path.resolve(paths.index))
         });
         // the value which will return to the client in case of exception
         app.use(errorHandler(DEVELOPMENT || TESTING));
     });
-
 
 export {server};

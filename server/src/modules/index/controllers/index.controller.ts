@@ -1,8 +1,8 @@
+import {SchemaTypes, ComparableSchema} from "@sugoi/core";
 import {
-    RequestSchemaPolicy, RequestBody, Controller, HttpGet, RequestParam, HttpPost, HttpPut,
-    HttpDelete, Authorized,Request
+RequestSchemaPolicy, RequestBody, Controller, HttpGet, RequestParam, HttpPost, HttpPut,
+HttpDelete, Authorized
 } from "@sugoi/server";
-import {UsePolicy, Policy, ValidateSchemaPolicy, SchemaTypes, ComparableSchema} from "@sugoi/core";
 import {DummyDataModel} from "../models/dummy-data.model";
 import {SocketHandlerService} from "../services/socket-handler.service";
 import {GENERIC_SOCKET_EVENTS} from "../../../../../common/constants/generic-socket-events.constant";
@@ -11,7 +11,13 @@ import {QueryOptions} from "@sugoi/orm";
 import {SortOptions} from "@sugoi/orm/dist/constants/sort-options.enum";
 import {SortItem} from "@sugoi/orm/dist/classes/sort-item.class";
 
+/**
+ * This class methods are forbidden for none authorized users.
+ *
+ * For "authorize" set the x-sug-demo header to be equal to Wyn1RRR9PQJPaqYM
+ */
 @Controller('/index')
+@Authorized()
 export class IndexController {
     private static readonly COLORS = ["bisque", "darkcyan", "aliceblue", "yellowgreen"];
 
@@ -33,7 +39,7 @@ export class IndexController {
         try {
             return await id ? DummyDataModel.findById(id)
                 : DummyDataModel.findAll({}, QueryOptions.builder()
-                    .setSortOption(
+                    .setSortOptions(
                         new SortItem(SortOptions.DESC, "amount"),
                         new SortItem(SortOptions.ASC, "lastUpdate")
                     )
@@ -92,15 +98,11 @@ export class IndexController {
 
     /**
      * Change the color of all connected sockets by using the SocketHandlerService instance
-     * This method is forbidden for none authorized users.
-     *
-     * For "authorize" set header x-sug-demo to be equal to Wyn1RRR9PQJPaqYM
      *
      * @ref server/src/core/classes/authorization.class.ts
      * @returns {{color: string}}
      */
     @HttpGet("/changeColor")
-    @Authorized()
     changeColor() {
         const index = Math.floor(Math.random() * Math.floor(IndexController.COLORS.length));
         this.socketHandler.emitToAllSockets(GENERIC_SOCKET_EVENTS.COLOR_CHANGE, IndexController.COLORS[index]);

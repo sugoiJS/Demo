@@ -1,18 +1,21 @@
-import {Controller, HttpDelete, HttpGet, HttpPost, HttpPut, RequestBody, RequestParam} from "@sugoi/server";
+import {
+    Controller, HttpDelete, HttpGet, HttpPost, HttpPut, RequestBody,
+    RequestParam
+} from "@sugoi/server";
 import {Post} from "../models/post.model";
 
 @Controller("/post")
 export class PostController {
 
     @HttpGet("/:id?")
-    async getPosts(@RequestParam("id") id: string | number) {
+    async get(@RequestParam("id") id: string | number) {
         return await id
             ? Post.findById(id)
             : Post.findAll();
     }
 
     @HttpPost("/")
-    async setPost(@RequestBody() body) {
+    async create(@RequestBody() body) {
         const post = Post.clone<Post>(Post, body);
         return await post.save();
 
@@ -20,7 +23,7 @@ export class PostController {
 
 
     @HttpPut("/:id")
-    async updatePost(@RequestParam("id")id: string, @RequestBody() body) {
+    async update(@RequestParam("id")id: string, @RequestBody() body) {
         const post = await Post.findById(id);
         Object.assign(post,body);
         return await post.update();
@@ -28,7 +31,7 @@ export class PostController {
     }
 
     @HttpDelete("/:id")
-    async removePost(@RequestParam("id") id:string){
+    async remove(@RequestParam("id") id:string){
         return await Post.removeById(id);
     }
 }
