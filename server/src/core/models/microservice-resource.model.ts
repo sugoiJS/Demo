@@ -16,7 +16,7 @@ export class MicroserviceResource extends ModelAbstract {
         super();
     }
 
-    protected updateEmitter<T = any>(options?: any): Promise<T> {
+    protected updateEmitter<T = any>(options?: any,query?:any): Promise<T> {
         const url = (<any>this.constructor).getUrl();
         return HttpService.put(`${url}/${this[getPrimaryKey(this)]}`, null, this);
     }
