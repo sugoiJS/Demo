@@ -3,7 +3,8 @@ import {IBeforeValidate, IValidate, IBeforeSave, IBeforeUpdate, ConnectionName} 
 
 @ConnectionName("SugoiApplicationDB")
 export class DummyDataModel extends MongoResource implements IValidate, IBeforeSave, IBeforeUpdate, IBeforeValidate {
-    maxAmount: number = 10;
+    public static maxAmount: number = 10;
+    public maxAmount: number;
 
     amount: number | string;
 
@@ -19,7 +20,8 @@ export class DummyDataModel extends MongoResource implements IValidate, IBeforeS
     }
 
     validate(): Promise<boolean | string> {
-        return Promise.resolve(this.amount < this.maxAmount);
+        const maxAmount = this.maxAmount || DummyDataModel.maxAmount;
+        return Promise.resolve(this.amount < maxAmount);
     }
 
     beforeSave(): void | Promise<any> {

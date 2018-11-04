@@ -18,18 +18,18 @@ const TESTING = process.env.ENV.indexOf('test') !== -1;
  * todo: comment out for establish a connection to mongoDB
  */
 const setDBs = function (app) {
-    // MongoModel.setConnection(services.MONGODB,"SugoiApplicationDB").catch(console.error);
+    MongoModel.setConnection(services.MONGODB,"SugoiApplicationDB").catch(console.error);
 };
 
 
 /**
- * comment out in case you want to run the server as http
+ * todo:comment out in case you want to run the server as https
  */
 // const httpsConfig = {
 //     key: fs.readFileSync(path.resolve(__dirname,'../server.key')),
 //     cert: fs.readFileSync(path.resolve(__dirname,'../server.cert'))
 // };
-    // const server: HttpServer = HttpServer.init(BootstrapModule, "/api", null, Authorization,httpsConfig)
+// const server: HttpServer = HttpServer.init(BootstrapModule, "/api", null, Authorization,httpsConfig)
 const server: HttpServer = HttpServer.init(BootstrapModule, "/api", null, Authorization)
     .setStatic(paths.staticDir) // set static file directory path
     .setMiddlewares((app) => {
