@@ -16,12 +16,12 @@ export class DummyDataModel extends MongoResource implements IValidate, IBeforeS
     }
 
     beforeValidate(): void | Promise<any> {
+        this.maxAmount = this.maxAmount || DummyDataModel.maxAmount;
         this.amount = this.amount == null ? 0 : parseInt(<string>this.amount);
     }
 
     validate(): Promise<boolean | string> {
-        const maxAmount = this.maxAmount || DummyDataModel.maxAmount;
-        return Promise.resolve(this.amount < maxAmount);
+        return Promise.resolve(this.amount < this.maxAmount);
     }
 
     beforeSave(): void | Promise<any> {
