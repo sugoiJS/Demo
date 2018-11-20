@@ -4,12 +4,12 @@ import * as fs from 'fs';
 import * as path from "path";
 import {HttpServer} from "@sugoi/server";
 
-import {paths} from './paths';
+import {paths} from './config/paths';
 import {MongoModel} from "@sugoi/mongodb";
-import {services} from "./services";
-import {BootstrapModule} from "../modules/bootstrap.module";
-import {errorHandler} from "../core/middleware/error.middleware";
-import {Authorization} from "../core/classes/authorization.class";
+import {services} from "./config/services";
+import {BootstrapModule} from "./modules/bootstrap.module";
+import {errorHandler} from "./core/middleware/error.middleware";
+import {Authorization} from "./core/classes/authorization.class";
 
 const DEVELOPMENT = process.env.ENV.indexOf('dev') !== -1;
 const TESTING = process.env.ENV.indexOf('test') !== -1;
@@ -18,7 +18,7 @@ const TESTING = process.env.ENV.indexOf('test') !== -1;
  * todo: comment out for establish a connection to mongoDB
  */
 const setDBs = function (app) {
-    // MongoModel.setConnection(services.MONGODB,"SugoiApplicationDB").catch(console.error);
+    MongoModel.setConnection(services.MONGODB,"SugoiApplicationDB").catch(console.error);
 };
 
 

@@ -1,7 +1,7 @@
 import {SchemaTypes, ComparableSchema} from "@sugoi/core";
 import {
-RequestSchemaPolicy, RequestBody, Controller, HttpGet, RequestParam, HttpPost, HttpPut,
-HttpDelete, Authorized
+    RequestSchemaPolicy, RequestBody, Controller, HttpGet, RequestParam, HttpPost, HttpPut,
+    HttpDelete, Authorized, RequestBodySchemaPolicy, RequestParamsSchemaPolicy
 } from "@sugoi/server";
 import {DummyDataModel} from "../models/dummy-data.model";
 import {SocketHandlerService} from "../services/socket-handler.service";
@@ -10,6 +10,8 @@ import {MongoModel} from "@sugoi/mongodb";
 import {QueryOptions} from "@sugoi/orm";
 import {SortOptions} from "@sugoi/orm/dist/constants/sort-options.enum";
 import {SortItem} from "@sugoi/orm/dist/classes/sort-item.class";
+import {DummyDataSchema} from "../schemas/dummy-data.schema";
+import {DummyDataIdSchema} from "../schemas/dummy-data-id.schema";
 
 /**
  * This class methods are forbidden for none authorized users.
@@ -34,7 +36,7 @@ export class IndexController {
      * @returns {Promise<any>}
      */
     @HttpGet("/data/:id?")
-    @RequestSchemaPolicy({"id": ComparableSchema.ofType(SchemaTypes.STRING).setRegex("([a-z])+")})
+    @RequestParamsSchemaPolicy({"id": DummyDataIdSchema})
     async getData(@RequestParam('id') id: string) {
         try {
             return await id ? DummyDataModel.findById(id)
@@ -62,7 +64,7 @@ export class IndexController {
      * @returns {Promise<any>}
      */
     @HttpPost("/data")
-    @RequestSchemaPolicy(null, null, {"amount": ComparableSchema.ofType(SchemaTypes.NUMBER).setMandatory(true).setMin(2)})
+    @RequestBodySchemaPolicy(DummyDataSchema)
     async createData(@RequestBody() body: DummyDataModel) {
         const myData = new DummyDataModel(body.amount);
         return await myData.save()
@@ -80,7 +82,7 @@ export class IndexController {
      * @returns {Promise<any>}
      */
     @HttpPut("/data/:id")
-    @RequestSchemaPolicy(null, null, {"amount": ComparableSchema.ofType(SchemaTypes.NUMBER).setMin(2)})
+    @RequestBodySchemaPolicy(DummyDataSchema)
     async updateData(@RequestParam("id") id: string, @RequestBody() body: DummyDataModel) {
         return await DummyDataModel.updateById(id, body)
     }

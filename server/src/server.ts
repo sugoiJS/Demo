@@ -1,6 +1,6 @@
 import * as logger from 'winston';
 import {socketService} from "@sugoi/socket";
-import {server} from "./config/app";
+import {server} from "./app";
 
 
 const PORT = parseInt(process.env.PORT) || 3000;

@@ -79,11 +79,12 @@ which gives you the ability to use only what you need, fast.
 
     -- src - application directory
 
-      > -- config   - Application bootstrap, services, paths and generic configs
+      > -- config   -  services, paths and generic configs
 
       > -- core     - Application generic classes, interface, utils etc.
 
       > -- modules  - All of our application modules, each module should be handle as separate unit for code sharing or export to micro-service.
+      > Application bootstrap
 
 ## Documentation
 
