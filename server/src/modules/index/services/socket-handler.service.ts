@@ -1,19 +1,21 @@
 import {Injectable} from "@sugoi/core";
-import {SocketOn, socketService} from "@sugoi/socket";
+import {SocketOn, SocketHandler} from "@sugoi/socket";
 import {GENERIC_SOCKET_EVENTS} from "../../../../../common/constants/generic-socket-events.constant";
-import SocketIOStatic = require("socket.io");
 
 @Injectable()
 export class SocketHandlerService {
 
     public amount = 1;
 
-    constructor(){
+    constructor() {
 
     }
 
-    @SocketOn(GENERIC_SOCKET_EVENTS.REGISTER_USER)
-    registerForClientUsage(intervalInSec, socket) {
+    @SocketOn(GENERIC_SOCKET_EVENTS.REGISTER_USER, "/",
+        (socket) => {
+            console.log("new client registered %s", socket.id);
+        })
+    registerForClientUsage(socket, intervalInSec) {
         let time = 0;
         setInterval(() => SocketHandlerService.updateClientUsage(socket, time += intervalInSec), intervalInSec * 1000);
         SocketHandlerService.updateClientUsage(socket, time);
@@ -23,8 +25,8 @@ export class SocketHandlerService {
         socket.emit(GENERIC_SOCKET_EVENTS.USAGE_TIME, usage)
     }
 
-    public emitToAllSockets(event:string,data){
-        (<SocketIOStatic.Server>socketService.getSocketServerByNamespace("/")).emit(event,data)
+    public emitToAllSockets(event: string, data) {
+        SocketHandler.getHandler().getNamespace("/").emit(event, data)
     }
 
 }

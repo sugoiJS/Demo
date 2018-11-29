@@ -1,5 +1,5 @@
 import * as logger from 'winston';
-import {socketService} from "@sugoi/socket";
+import {SocketHandler} from "@sugoi/socket";
 import {server} from "./app";
 
 
@@ -16,4 +16,4 @@ const serverInstance = server
         logger.debug(`Server running @ ${HOST}:${PORT}`);
     });
 
-socketService.init(serverInstance);
+SocketHandler.init(serverInstance);
