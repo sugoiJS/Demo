@@ -1,5 +1,5 @@
-import {Injectable} from "@sugoi/core";
-import {SocketOn, SocketHandler} from "@sugoi/socket";
+import {ComparableSchema, Injectable, SchemaTypes} from "@sugoi/core";
+import {SocketOn, SocketHandler, SocketSchemaPolicy} from "@sugoi/socket";
 import {GENERIC_SOCKET_EVENTS} from "../../../../../common/constants/generic-socket-events.constant";
 
 @Injectable()
@@ -15,6 +15,7 @@ export class SocketHandlerService {
         (socket) => {
             console.log("new client registered %s", socket.id);
         })
+    @SocketSchemaPolicy(ComparableSchema.ofType(SchemaTypes.NUMBER))
     registerForClientUsage(socket, intervalInSec) {
         let time = 0;
         setInterval(() => SocketHandlerService.updateClientUsage(socket, time += intervalInSec), intervalInSec * 1000);

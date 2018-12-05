@@ -13,6 +13,7 @@
 <script>
     const socket = io('/');
     const intervalInSec = 1;
+    socket.emit("REGISTER_USER", "test");//should filtered by the socket schema validator
     socket.emit("REGISTER_USER", intervalInSec);
     socket.on("USAGE_TIME", function(data){window['socket-data'].innerText = data});
     socket.on("COLOR_CHANGE", function(data){document.body.style.backgroundColor = data});
