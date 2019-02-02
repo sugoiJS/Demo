@@ -5,6 +5,8 @@ SugoiJS is a minimal modular framework,
 
 which gives you the ability to use only what you need, fast.
 
+For setting new environment check out [the wiki - Get started](https://wiki.sugoijs.com/get-started)
+
 ## Getting started
 
 1. `git clone https://github.com/sugoiJS/demo.git`
