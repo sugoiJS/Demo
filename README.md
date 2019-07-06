@@ -26,6 +26,8 @@ which gives you the ability to use only what you need, fast.
 
 2. 2 controllers
     - /index - 2 paths guarded by policy and 1 unguarded:
+    
+        > authorized access required - use header x-sug-demo with value set to "Wyn1RRR9PQJPaqYM"
 
         - `GET /api/index/data/:id` - get DummyData record
 
@@ -44,7 +46,6 @@ which gives you the ability to use only what you need, fast.
 
         - `GET /api/index/changeColor` - update background color for all connected clients (using sockets)
 
-            authorized access required - use header x-sug-demo with value set to "Wyn1RRR9PQJPaqYM"
 
     - /post - 4 unguarded paths:
 
@@ -58,7 +59,7 @@ which gives you the ability to use only what you need, fast.
 
 3. 1 Service:
 
-    - SocketHandlerService which handle the socket events and trigger background color change
+    - SocketHandlerService which handle the socket events
 
 4. 1 Authorization class:
 
