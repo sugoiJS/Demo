@@ -24,7 +24,7 @@ For setting new environment check out [the wiki - Get started](https://wiki.sugo
 
     IndexModule - This module demonstrate usage of socket with SocketHandlerService and handling Mongo resource named DummyDataModel using MongoModel.
 
-    PostsModule - This module demonstrate handling Microservice resource named posts using ModelAbstract (PostModel).
+    PostsModule - PostsModule - This module demonstrate handling resource named posts using ModelAbstract (PostModel) and come the demonstrate a "microservice" usage (module can easily export to another server).
 
 2. 2 controllers
     - /index - 2 paths guarded by policy and 1 unguarded:
