@@ -23,7 +23,7 @@
     "@sugoi/orm": "^4.0.0",
     "@sugoi/server": "^4.0.0",
     "@sugoi/socket": "^4.0.1",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.20.1",
     "compression": "^1.7.3",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
